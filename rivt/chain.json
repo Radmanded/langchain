@@ -1,0 +1,72 @@
+{
+	"memory": null,
+	"verbose": true,
+	"api_request_chain": {
+		"memory": null,
+		"verbose": false,
+		"prompt": {
+			"input_variables": [
+				"api_docs",
+				"question"
+			],
+			"output_parser": null,
+			"template": "You are given the below API Documentation:\n{api_docs}\nUsing this documentation, generate the full API url to call for answering the user question.\nYou should build the API url in order to get a response that is as short as possible, while still getting the necessary information to answer the question. Pay attention to deliberately exclude any unnecessary pieces of data in the API call.\n\nQuestion:{question}\nAPI url:",
+			"template_format": "f-string",
+			"_type": "prompt"
+		},
+		"llm": {
+			"model_name": "text-davinci-003",
+			"temperature": 0.0,
+			"max_tokens": 256,
+			"top_p": 1,
+			"frequency_penalty": 0,
+			"presence_penalty": 0,
+			"n": 1,
+			"best_of": 1,
+			"request_timeout": null,
+			"logit_bias": {},
+			"_type": "openai"
+		},
+		"output_key": "text",
+		"_type": "llm_chain"
+	},
+	"api_answer_chain": {
+		"memory": null,
+		"verbose": false,
+		"prompt": {
+			"input_variables": [
+				"api_docs",
+				"question",
+				"api_url",
+				"api_response"
+			],
+			"output_parser": null,
+			"template": "You are given the below API Documentation:\n{api_docs}\nUsing this documentation, generate the full API url to call for answering the user question.\nYou should build the API url in order to get a response that is as short as possible, while still getting the necessary information to answer the question. Pay attention to deliberately exclude any unnecessary pieces of data in the API call.\n\nQuestion:{question}\nAPI url: {api_url}\n\nHere is the response from the API:\n\n{api_response}\n\nSummarize this response to answer the original question.\n\nSummary:",
+			"template_format": "f-string",
+			"_type": "prompt"
+		},
+		"llm": {
+			"model_name": "text-davinci-003",
+			"temperature": 0.0,
+			"max_tokens": 256,
+			"top_p": 1,
+			"frequency_penalty": 0,
+			"presence_penalty": 0,
+			"n": 1,
+			"best_of": 1,
+			"request_timeout": null,
+			"logit_bias": {},
+			"_type": "openai"
+		},
+		"output_key": "text",
+		"_type": "llm_chain"
+	},
+	"api_docs": "BASE URL: https://wsgx.cisco.com/wwchannels/services/external/getData\n\nAPI Documentation\nThe API accepts a JSON payload with information about the reseller and responds with a JSON containing relevant reseller data. The JSON payload parameters are listed below:\n\nParameter\tType\tDescription\nservice\tString\tThe service to be requested\nccoId\tString\tThe Cisco Connection Online (CCO) ID\nprofileId\tString\tThe profile ID\nentity\tString\tThe entity for which information is being requested",
+	"question_key": "question",
+	"output_key": "output",
+	"_type": "api_chain"
+}
+
+
+
+
